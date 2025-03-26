@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+ARG CACHEBUST=1
+
 # Установим необходимые библиотеки Python
 RUN pip install --no-cache-dir aiogram requests beautifulsoup4 lxml cryptography python-dotenv
 
