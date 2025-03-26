@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache-dir aiogram requests beautifulsoup4 lxml cryptography python-dotenv
 
 # Клонируем ваш репозиторий через HTTPS
-RUN git clone https://github.com/bulatt57/KGEU_moodle.git /app
+RUN git clone --branch actions_setting --single-branch https://github.com/AntonGaranin/moodle_project.git /app
 
 # Укажем рабочую директорию
 WORKDIR /app

@@ -42,4 +42,5 @@ jobs:
       - name: Run New Container
         run: |
           docker run -d --name telegram-bot \
+          --restart unless-stopped \
           telegram-bot
