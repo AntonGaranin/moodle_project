@@ -1,11 +1,10 @@
 from cryptography.fernet import Fernet
-import subprocess
 import os
-key = Fernet.generate_key()
-subprocess.run(["export", f'ENCRYPTION_KEY="{key}"'])
-value = os.getenv("ENCRYPTION_KEY")
-if value is not None:
-    pass
+
+# Проверяем, есть ли переменная окружения
+if "ENCRYPTION_KEY" not in os.environ:
+    key = Fernet.generate_key().decode()  # Декодируем байты в строку
+    os.environ["ENCRYPTION_KEY"] = key  # Устанавливаем переменную окружения
+    print(f"Создана переменная окружения ENCRYPTION_KEY: {key}")
 else:
-    key = Fernet.generate_key()
-    subprocess.run(["export", f'ENCRYPTION_KEY="{key}"'])
+    print("Переменная ENCRYPTION_KEY уже существует.")
