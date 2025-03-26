@@ -8,8 +8,6 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ARG CACHEBUST=1
-
 # Установим необходимые библиотеки Python
 RUN pip install --no-cache-dir aiogram requests beautifulsoup4 lxml cryptography python-dotenv
 
@@ -19,8 +17,6 @@ RUN git clone --branch actions_setting --single-branch https://github.com/AntonG
 # Укажем рабочую директорию
 WORKDIR /app
 
-# Команда для создания ключа шифрования
-CMD ["python", "cypher_key.py"]
+# Команда для создания ключа шифрования и Укажем команду для запуска бота
+CMD bash -c "python cypher_key.py && python main.py"
 
-# Укажем команду для запуска бота
-CMD ["python", "main.py"]
