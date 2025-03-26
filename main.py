@@ -19,7 +19,7 @@ import os
 API_TOKEN = '7865333406:AAH24rbw85Y4qmCSrsGGNlEkfP5cRFN5ZmI'
 JSON_FILE = 'user_data.json'
 load_dotenv()
-key = os.getenv("ENCRYPTION_KEY").encode()
+key = os.environ["ENCRYPTION_KEY"].encode()
 cipher = Fernet(key)
 
 bot = Bot(token=API_TOKEN)
