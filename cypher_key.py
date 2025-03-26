@@ -2,18 +2,20 @@ from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 import os
 
-# Загружаем существующие переменные из .env файла
+# Загружаем существующие переменные из .env (если файл есть)
 load_dotenv()
 
-if "ENCRYPTION_KEY" not in os.environ:
+# Проверяем, есть ли уже ENCRYPTION_KEY
+if os.getenv("ENCRYPTION_KEY") is None:
+    # Генерируем новый ключ, если его нет
     key = Fernet.generate_key().decode()
 
-    # Записываем в .env файл
-    with open('.env', 'a') as f:
-        f.write(f'\nENCRYPTION_KEY={key}\n')
+    # Записываем ключ в .env
+    with open(".env", "a") as f:
+        f.write(f'ENCRYPTION_KEY="{key}"\n')
 
-    # Обновляем текущее окружение
-    os.environ['ENCRYPTION_KEY'] = key
-    print(f"Ключ сохранён в .env файл: {key}")
+    # Перезагружаем переменные, чтобы новая переменная стала доступна
+    load_dotenv()
+    print("Новый ключ сгенерирован и сохранён в .env")
 else:
-    print(f"Используется существующий ключ: {os.environ['ENCRYPTION_KEY']}")
+    print("Ключ уже существует:", os.getenv("ENCRYPTION_KEY"))
