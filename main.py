@@ -95,6 +95,7 @@ class UserAuthenticationForm(StatesGroup):
     waiting_for_user_login = State()
     waiting_for_user_password = State()
 
+
 @router.message(Command("start"))
 async def send_welcome(message: types.Message):
     user_id = str(message.from_user.id)

@@ -16,6 +16,7 @@ def is_env_var_set(var_name):
                     return True
     return False
 
+
 if not is_env_var_set("ENCRYPTION_KEY"):
     key = Fernet.generate_key().decode()
     # Добавляем в ~/.bashrc (или другой конфиг)
