@@ -38,6 +38,7 @@ auth_user_button = KeyboardButton(text='Авторизация по данным
 my_courses_button = KeyboardButton(text="Мои курсы")
 new_course_registration_button = KeyboardButton(text='Регистрация на новый курс moodle')
 
+
 def load_user_data():
     try:
         with open(JSON_FILE, 'r') as file:
