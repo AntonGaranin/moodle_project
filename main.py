@@ -11,12 +11,14 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from special_parsing_class import DualKeyDict
 import asyncio
+from dotenv import load_dotenv
 from cryptography.fernet import Fernet
 import os
 
 
 API_TOKEN = '7865333406:AAH24rbw85Y4qmCSrsGGNlEkfP5cRFN5ZmI'
 JSON_FILE = 'user_data.json'
+load_dotenv()
 key = os.getenv("ENCRYPTION_KEY").encode()
 cipher = Fernet(key)
 
