@@ -9,7 +9,7 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
-from special_parsing_class import DualKeyDict
+from .special_parsing_class import DualKeyDict
 import asyncio
 from cryptography.fernet import Fernet
 import os

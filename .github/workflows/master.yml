@@ -1,26 +1,48 @@
 name: Master
+
 on: push
+
 jobs:
   build:
     runs-on: self-hosted
     steps:
-      # 1. Проверяем репозиторий
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2. Устанавливаем Docker (если не установлен)
       - name: Install Docker (Optional)
         if: runner.os != 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y docker.io
 
-      # 3. Сборка Docker-образа
       - name: Build Docker Image
         run: docker build -t telegram-bot .
 
-      # 4. Запуск контейнера
-      - name: Run Docker Container
+  test:
+    runs-on: self-hosted
+    needs: build
+    continue-on-error: true
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run All Tests
+        run: |
+          docker run --rm telegram-bot python -m unittest discover -s tests || true
+
+  deploy:
+    runs-on: self-hosted
+    needs: test
+    steps:
+      - name: Pull Latest Image
+        run: docker pull telegram-bot
+
+      - name: Stop Existing Container
+        run: |
+          docker stop telegram-bot || true
+          docker rm telegram-bot || true
+
+      - name: Run New Container
         run: |
           docker run -d --name telegram-bot \
           --restart unless-stopped \

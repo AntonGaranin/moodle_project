@@ -17,5 +17,8 @@ RUN git clone https://github.com/bulatt57/KGEU_moodle.git /app
 # Укажем рабочую директорию
 WORKDIR /app
 
+# Команда для создания ключа шифрования
+CMD ["python", "cypher_key.py"]
+
 # Укажем команду для запуска бота
 CMD ["python", "main.py"]
